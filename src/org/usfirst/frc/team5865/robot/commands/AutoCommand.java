@@ -7,10 +7,10 @@ import org.usfirst.frc.team5865.robot.Robot;
 /**
  *
  */
-public class ExampleCommand extends Command {
-	public ExampleCommand() {
+public class AutoCommand extends Command {
+	public AutoCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.exampleSubsystem);
+		//requires(Robot.exampleSubsystem);
 	}
 
 	// Called just before this Command runs the first time
