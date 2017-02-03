@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GrimpeurCommand extends Command {
 	
-	private XboxControllerUD piloteXbox;
 	private int stateGrimpeur = 0;      ///// 0 = arreter       1 == monter
 
     public GrimpeurCommand() {
@@ -21,7 +20,6 @@ public class GrimpeurCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	piloteXbox = Robot.oi.getXboxPilot();
     }
 
     // Called repeatedly when this Command is scheduled to run
