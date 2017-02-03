@@ -21,7 +21,7 @@ public class Grimpeur extends Subsystem {
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
-    	grimpeurCANTalonDrive = new CANTalon(3);    /////// à modifier (le no du CAN)
+    	grimpeurCANTalonDrive = new CANTalon(Const.GRIMPEUR_CAN_ID);    /////// à modifier (le no du CAN)
          LiveWindow.addActuator("Grimpeur", "CANTalonGrimpeur", grimpeurCANTalonDrive);
          
     }

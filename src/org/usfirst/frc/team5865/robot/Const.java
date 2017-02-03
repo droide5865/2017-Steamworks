@@ -8,6 +8,8 @@ public class Const {
 	public static final int DRIVE_RIGHT_MASTER_CAN_ID = 30;
 	public static final int DRIVE_RIGHT_SLAVE_CAN_ID = 31;
 	
+	public static final int GRIMPEUR_CAN_ID = 4;
+	
 	// Robot measurements
 	public static final double WHEELS_DIAMETER_IN = 3;
 	public static final double WHEELS_DIAMETER_M = WHEELS_DIAMETER_IN * 0.0254;
