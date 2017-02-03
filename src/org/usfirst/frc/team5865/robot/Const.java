@@ -18,5 +18,8 @@ public class Const {
 	
 	private static final double SRX_ERR_MOY = 600; // In native units (measured with CTR VelocityClosedLoop example)
 	public static final double P_GAIN = (0.1 * 1023) / (SRX_ERR_MOY);
+	
+	// grimpeur
+	public static final double GRIMPEUR_UP_MAX_SPEED = 0.5;
 
 }
