@@ -13,22 +13,18 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Grimpeur extends Subsystem {
 	
-	public static CANTalon grimpeurCANTalonDrive;
+    public static CANTalon grimpeurCANTalonDrive;
 	
+    public Grimpeur() {
+        grimpeurCANTalonDrive = new CANTalon(Const.GRIMPEUR_CAN_ID);
+        LiveWindow.addActuator("Grimpeur", "CANTalonGrimpeur", grimpeurCANTalonDrive);
+    }
 	
-	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
-    public void initDefaultCommand() {
-    	grimpeurCANTalonDrive = new CANTalon(Const.GRIMPEUR_CAN_ID);    /////// à modifier (le no du CAN)
-         LiveWindow.addActuator("Grimpeur", "CANTalonGrimpeur", grimpeurCANTalonDrive);
-         
+    public void initDefaultCommand() {        
     }
 	
     // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    
+    // here. Call these from Commands.    
     public void monter(double valeur) {
     	grimpeurCANTalonDrive.set(valeur);	
     }
