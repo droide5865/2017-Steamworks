@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GobeurCommand extends Command {
+public class LanceurCommand extends Command {
 	
-	private int stateGobeur = 0;      ///// 0 = arreter       1 == monter
+	private int stateLanceur = 0;      ///// 0 = arreter       1 == monter
 
-    public GobeurCommand() {
+    public LanceurCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -24,12 +24,12 @@ public class GobeurCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 if(stateGobeur == 0){
-        	 Robot.gobeur.gob(Const.GOBEUR_MAX_SPEED);
-        	 stateGobeur = 1;
+    	 if(stateLanceur == 0){
+        	 Robot.lanceur.lancer(Const.LANCEUR_MAX_SPEED);
+        	 stateLanceur = 1;
          }else{
-        	 Robot.gobeur.arreter();
-        	 stateGobeur = 0;
+        	 Robot.lanceur.arreter();
+        	 stateLanceur = 0;
          }
     }
 

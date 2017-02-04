@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 /**
  *
  */
-public class Gobeur extends Subsystem {
+public class Lanceur extends Subsystem {
 	
-    public static CANTalon GobeurCANTalonDrive;
+    public static CANTalon LanceurCANTalonDrive;
 	
-    public Gobeur() {
-        GobeurCANTalonDrive = new CANTalon(Const.GOBEUR_CAN_ID);
-        LiveWindow.addActuator("Gobeur", "CANTalonGobeur", GobeurCANTalonDrive);
+    public Lanceur() {
+        LanceurCANTalonDrive = new CANTalon(Const.LANCEUR_CAN_ID);
+        LiveWindow.addActuator("Lanceur", "CANTalonLanceur", LanceurCANTalonDrive);
     }
 	
     public void initDefaultCommand() {        
@@ -25,11 +25,12 @@ public class Gobeur extends Subsystem {
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.    
-    public void gob(double valeur) {
-    	GobeurCANTalonDrive.set(valeur);	
+    public void lancer(double valeur) {
+    	LanceurCANTalonDrive.set(valeur);	
     }
     
     public void arreter() {
-    	GobeurCANTalonDrive.set(0);
+    	LanceurCANTalonDrive.set(0);
     }
 }
+

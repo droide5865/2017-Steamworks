@@ -12,6 +12,10 @@ public class Const {
 	
 	public static final int GOBEUR_CAN_ID = 5;
 	
+	public static final int LANCEUR_CAN_ID = 5;
+	
+	
+	
 	// Robot measurements
 	public static final double WHEELS_DIAMETER_IN = 3;
 	public static final double WHEELS_DIAMETER_M = WHEELS_DIAMETER_IN * 0.0254;
@@ -28,5 +32,8 @@ public class Const {
 	
 	// gobeur
 	public static final double GOBEUR_MAX_SPEED = 0.5;
+	
+	// lanceur
+	public static final double LANCEUR_MAX_SPEED = 1;
 
 }

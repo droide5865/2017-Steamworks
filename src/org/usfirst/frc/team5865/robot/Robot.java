@@ -9,6 +9,7 @@ import org.usfirst.frc.team5865.robot.commands.AutoCommand;
 import org.usfirst.frc.team5865.robot.subsystems.Drive;
 import org.usfirst.frc.team5865.robot.subsystems.Gobeur;
 import org.usfirst.frc.team5865.robot.subsystems.Grimpeur;
+import org.usfirst.frc.team5865.robot.subsystems.Lanceur;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +24,8 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static Grimpeur grimpeur;
 	public static Gobeur gobeur;
+	public static Lanceur lanceur;
+	
 
 	Command autonomousCommand;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
@@ -36,6 +39,7 @@ public class Robot extends IterativeRobot {
 		drive = new Drive();
 		grimpeur = new Grimpeur();	
 		gobeur = new Gobeur();
+		lanceur = new Lanceur();
 		
         // OI must be constructed after subsystems. If the OI creates Commands
         //(which it very likely will), subsystems are not guaranteed to be
