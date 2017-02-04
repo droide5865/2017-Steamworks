@@ -10,6 +10,8 @@ public class Const {
 	
 	public static final int GRIMPEUR_CAN_ID = 4;
 	
+	public static final int GOBEUR_CAN_ID = 5;
+	
 	// Robot measurements
 	public static final double WHEELS_DIAMETER_IN = 3;
 	public static final double WHEELS_DIAMETER_M = WHEELS_DIAMETER_IN * 0.0254;
@@ -22,6 +24,9 @@ public class Const {
 	public static final double P_GAIN = (0.1 * 1023) / (SRX_ERR_MOY);
 	
 	// grimpeur
-	public static final double GRIMPEUR_UP_MAX_SPEED = 0.5;
+	public static final double GRIMPEUR_MAX_SPEED = 0.5;
+	
+	// gobeur
+	public static final double GOBEUR_MAX_SPEED = 0.5;
 
 }

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team5865.robot.commands.AutoCommand;
 import org.usfirst.frc.team5865.robot.subsystems.Drive;
+import org.usfirst.frc.team5865.robot.subsystems.Gobeur;
 import org.usfirst.frc.team5865.robot.subsystems.Grimpeur;
 
 /**
@@ -21,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Drive drive;
 	public static Grimpeur grimpeur;
+	public static Gobeur gobeur;
 
 	Command autonomousCommand;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
@@ -32,7 +34,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drive = new Drive();
-		grimpeur = new Grimpeur();		
+		grimpeur = new Grimpeur();	
+		gobeur = new Gobeur();
+		
         // OI must be constructed after subsystems. If the OI creates Commands
         //(which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
