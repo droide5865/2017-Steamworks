@@ -34,17 +34,17 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	
+    public XboxControllerUD xboxPilot;
 
-	public XboxControllerUD xboxPilot;
+    public OI() {
+    	xboxPilot = new XboxControllerUD(0);
+    	
+    	//xboxPilot.a.whenPressed(new DriveCommand(DriveCmdMode.mResetEncoders));
+    	//xboxPilot.dPad.left.whenPressed(new Tourner90Degres(false /*tourner droite*/));
+    }
 
-	public OI() {
-		xboxPilot = new XboxControllerUD(0);
-
-		//xboxPilot.a.whenPressed(new DriveCommand(DriveCmdMode.mResetEncoders));
-		//xboxPilot.dPad.left.whenPressed(new Tourner90Degres(false /*tourner droite*/));
-	}
-
-	public XboxControllerUD getXboxPilot() {
-		return xboxPilot;
-	}
+    public XboxControllerUD getXboxPilot() {
+        return xboxPilot;
+    }
 }
