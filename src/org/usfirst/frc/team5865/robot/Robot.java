@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
 	public static Grimpeur grimpeur;
 	public static Gobeur gobeur;
 	public static Lanceur lanceur;
-	
+
 
 	Command autonomousCommand;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
@@ -40,13 +40,13 @@ public class Robot extends IterativeRobot {
 		grimpeur = new Grimpeur();	
 		gobeur = new Gobeur();
 		lanceur = new Lanceur();
-		
-        // OI must be constructed after subsystems. If the OI creates Commands
-        //(which it very likely will), subsystems are not guaranteed to be
-        // constructed yet. Thus, their requires() statements may grab null
-        // pointers. Bad news. Don't move it.
+
+		// OI must be constructed after subsystems. If the OI creates Commands
+		//(which it very likely will), subsystems are not guaranteed to be
+		// constructed yet. Thus, their requires() statements may grab null
+		// pointers. Bad news. Don't move it.
 		oi = new OI();
-		
+
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutoCommand();
 	}
