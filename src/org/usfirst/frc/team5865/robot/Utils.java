@@ -3,9 +3,9 @@ package org.usfirst.frc.team5865.robot;
 public class Utils {
 
 	public static double Limit (double num) {
-		return Limit(num, 1, -1);
+		return Limit(num, -1, 1);
 	}
-	public static double Limit(double num, double max, double min) {
+	public static double Limit(double num, double min, double max) {
 		if (max < min)
 			throw new IllegalArgumentException("Le minimum doit etre plus petit que le maximum");
 

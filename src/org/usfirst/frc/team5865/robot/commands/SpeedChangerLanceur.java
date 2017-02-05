@@ -7,19 +7,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GobeurCommand extends Command {
-
-	public enum GobeurCmdMode { mGober, mArreter };
-	private GobeurCmdMode mMode;
-
-	public GobeurCommand(GobeurCmdMode mode) {
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.gobeur);
-		mMode = mode;
-	}
+public class SpeedChangerLanceur extends Command {
 	
-	public GobeurCommand() {
-		this(GobeurCmdMode.mGober);
+	public enum SpeedChangerMode { mMonter, mDescendre }
+	public SpeedChangerMode mMode;
+
+	public SpeedChangerLanceur(SpeedChangerMode mode) {
+		// Use requires() here to declare subsystem dependencies
+		requires(Robot.lanceur);
+		mMode = mode;
 	}
 
 	// Called just before this Command runs the first time
@@ -29,11 +25,11 @@ public class GobeurCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		switch (mMode) {
-		case mGober:
-			Robot.gobeur.gober();
+		case mMonter:
+			Robot.lanceur.speedUp();
 			break;
-		case mArreter:
-			Robot.gobeur.arreter();
+		case mDescendre:
+			Robot.lanceur.speedDown();
 			break;
 		default:
 			break;
@@ -42,17 +38,15 @@ public class GobeurCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.gobeur.arreter();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		end();
 	}
 }

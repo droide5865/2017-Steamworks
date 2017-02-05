@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5865.robot.commands;
 
-import org.usfirst.frc.team5865.robot.Const;
 import org.usfirst.frc.team5865.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,11 +9,17 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class LanceurCommand extends Command {
 
-	private int stateLanceur = 0;      ///// 0 = arreter       1 == monter
+	public enum LanceurCmdMode { mLancer, mArreter };
+	private LanceurCmdMode mMode;
 
-	public LanceurCommand() {
+	public LanceurCommand(LanceurCmdMode mode) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.lanceur);
+		mMode = mode;
+	}
+	
+	public LanceurCommand() {
+		this(LanceurCmdMode.mLancer);
 	}
 
 	// Called just before this Command runs the first time
@@ -23,12 +28,15 @@ public class LanceurCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (stateLanceur == 0){
-			Robot.lanceur.lancer(Const.LANCEUR_MAX_SPEED);
-			stateLanceur = 1;
-		} else {
+		switch (mMode) {
+		case mLancer:
+			Robot.lanceur.lancer();
+			break;
+		case mArreter:
 			Robot.lanceur.arreter();
-			stateLanceur = 0;
+			break;
+		default:
+			break;
 		}
 	}
 

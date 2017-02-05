@@ -24,8 +24,8 @@ public class Gobeur extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.    
-	public void gob(double valeur) {
-		GobeurCANTalonDrive.set(valeur);	
+	public void gober() {
+		GobeurCANTalonDrive.set(Const.GOBEUR_MAX_SPEED);	
 	}
 
 	public void arreter() {

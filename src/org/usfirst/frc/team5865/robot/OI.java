@@ -1,6 +1,11 @@
 package org.usfirst.frc.team5865.robot;
 
 import org.usfirst.frc.team5865.joystick.XboxControllerUD;
+import org.usfirst.frc.team5865.robot.commands.GobeurCommand;
+import org.usfirst.frc.team5865.robot.commands.GrimpeurCommand;
+import org.usfirst.frc.team5865.robot.commands.LanceurCommand;
+import org.usfirst.frc.team5865.robot.commands.SpeedChangerLanceur;
+import org.usfirst.frc.team5865.robot.commands.SpeedChangerLanceur.SpeedChangerMode;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -40,8 +45,12 @@ public class OI {
 	public OI() {
 		xboxPilot = new XboxControllerUD(0);
 
-		//xboxPilot.a.whenPressed(new DriveCommand(DriveCmdMode.mResetEncoders));
-		//xboxPilot.dPad.left.whenPressed(new Tourner90Degres(false /*tourner droite*/));
+		xboxPilot.a.toggleWhenPressed(new GobeurCommand());
+		xboxPilot.b.toggleWhenPressed(new LanceurCommand());
+		xboxPilot.rb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mMonter));
+		xboxPilot.lb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mDescendre));
+		
+		xboxPilot.x.toggleWhenPressed(new GrimpeurCommand());
 	}
 
 	public XboxControllerUD getXboxPilot() {

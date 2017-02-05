@@ -3,17 +3,6 @@ package org.usfirst.frc.team5865.robot;
 public class Const {
 	
 	// Talon mapping
-	public static final int DRIVE_LEFT_MASTER_CAN_ID = 11;
-	public static final int DRIVE_LEFT_SLAVE_CAN_ID = 21;
-	public static final int DRIVE_RIGHT_MASTER_CAN_ID = 30;
-	public static final int DRIVE_RIGHT_SLAVE_CAN_ID = 31;
-	
-	public static final int GRIMPEUR_CAN_ID = 4;
-	
-	public static final int GOBEUR_CAN_ID = 5;
-	
-	public static final int LANCEUR_CAN_ID = 5;
-	
 	
 	
 	// Robot measurements
@@ -28,12 +17,16 @@ public class Const {
 	public static final double P_GAIN = (0.1 * 1023) / (SRX_ERR_MOY);
 	
 	// grimpeur
-	public static final double GRIMPEUR_MAX_SPEED = 0.5;
+	public static final double GRIMPEUR_DEF_SPEED = 0.5;
+	public static final double GRIMPEUR_MAX_SPEED = 1;
+	public static final double GRIMPEUR_INCREMENT_SPEED = 0.1;
 	
 	// gobeur
 	public static final double GOBEUR_MAX_SPEED = 0.5;
 	
 	// lanceur
+	public static final double LANCEUR_DEF_SPEED = 0.8;
+	public static final double LANCEUR_INCREMENT_SPEED = 0.1;
 	public static final double LANCEUR_MAX_SPEED = 1;
 
 }
