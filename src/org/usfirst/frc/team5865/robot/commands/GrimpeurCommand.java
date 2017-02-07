@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5865.robot.commands;
 
-import org.usfirst.frc.team5865.robot.Const;
 import org.usfirst.frc.team5865.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,11 +9,17 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GrimpeurCommand extends Command {
 
-	private int stateGrimpeur = 0;      ///// 0 = arreter       1 == monter
+	public enum GrimpeurCmdMode { mGrimper, mArreter };
+	private GrimpeurCmdMode mMode;
 
-	public GrimpeurCommand() {
+	public GrimpeurCommand(GrimpeurCmdMode mode) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.grimpeur);
+		mMode = mode;
+	}
+	
+	public GrimpeurCommand() {
+		this(GrimpeurCmdMode.mGrimper);
 	}
 
 	// Called just before this Command runs the first time
@@ -23,12 +28,15 @@ public class GrimpeurCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (stateGrimpeur == 0) {
-			Robot.grimpeur.monter(Const.GRIMPEUR_MAX_SPEED);
-			stateGrimpeur = 1;
-		} else {
+		switch (mMode) {
+		case mGrimper:
+			Robot.grimpeur.monter();
+			break;
+		case mArreter:
 			Robot.grimpeur.arreter();
-			stateGrimpeur = 0;
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -39,7 +47,7 @@ public class GrimpeurCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.grimpeur.arreter();
+		Robot.lanceur.arreter();
 	}
 
 	// Called when another command which requires one or more of the same
