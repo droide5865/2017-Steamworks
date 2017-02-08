@@ -1,7 +1,9 @@
 package org.usfirst.frc.team5865.robot.commands;
 
+import org.usfirst.frc.team5865.robot.Const;
 import org.usfirst.frc.team5865.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -30,7 +32,9 @@ public class GrimpeurCommand extends Command {
 	protected void execute() {
 		switch (mMode) {
 		case mGrimper:
-			Robot.grimpeur.monter();
+			if (DriverStation.getInstance().getMatchTime() < Const.GRIMPEUR_TIME_BEFORE_ACTIVATION /*seconds*/) {
+				Robot.grimpeur.monter();
+			}
 			break;
 		case mArreter:
 			Robot.grimpeur.arreter();
@@ -47,7 +51,7 @@ public class GrimpeurCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.lanceur.arreter();
+		Robot.grimpeur.arreter();
 	}
 
 	// Called when another command which requires one or more of the same

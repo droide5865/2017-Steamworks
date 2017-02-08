@@ -28,6 +28,7 @@ public class Const {
 	public static final double GRIMPEUR_DEF_SPEED = 0.5;
 	public static final double GRIMPEUR_MAX_SPEED = 1;
 	public static final double GRIMPEUR_INCREMENT_SPEED = 0.1;
+	public static final double GRIMPEUR_TIME_BEFORE_ACTIVATION = 30;
 	
 	// gobeur
 	public static final double GOBEUR_MAX_SPEED = 0.1;
@@ -36,6 +37,12 @@ public class Const {
 	public static final double LANCEUR_DEF_SPEED = 0.8;
 	public static final double LANCEUR_INCREMENT_SPEED = 0.1;
 	public static final double LANCEUR_MAX_SPEED = 1;
+	
+	public static final double LANCEUR_DEF_ANGLE = 0.5;
+	public static final double LANCEUR_MIN_ANGLE = 0.2;
+	public static final double LANCEUR_MAX_ANGLE = 0.8;
+	public static final double LANCEUR_INCREMENT_ANGLE = (LANCEUR_MAX_ANGLE - LANCEUR_MIN_ANGLE) / 10;
+	
 	
 	
 	

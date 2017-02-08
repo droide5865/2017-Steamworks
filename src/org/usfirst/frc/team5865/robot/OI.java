@@ -1,6 +1,8 @@
 package org.usfirst.frc.team5865.robot;
 
 import org.usfirst.frc.team5865.joystick.XboxControllerUD;
+import org.usfirst.frc.team5865.robot.commands.AngleChangerLanceur;
+import org.usfirst.frc.team5865.robot.commands.AngleChangerLanceur.AngleAdjusterMode;
 import org.usfirst.frc.team5865.robot.commands.GobeurCommand;
 import org.usfirst.frc.team5865.robot.commands.GrimpeurCommand;
 import org.usfirst.frc.team5865.robot.commands.LanceurCommand;
@@ -45,12 +47,15 @@ public class OI {
 	public OI() {
 		xboxPilot = new XboxControllerUD(0);
 
-		xboxPilot.a.toggleWhenPressed(new GobeurCommand());
+		xboxPilot.a.toggleWhenPressed(new GrimpeurCommand());
 		xboxPilot.b.toggleWhenPressed(new LanceurCommand());
+		xboxPilot.x.toggleWhenPressed(new GobeurCommand());
+		
 		xboxPilot.rb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mMonter));
 		xboxPilot.lb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mDescendre));
+		xboxPilot.start.whenPressed(new AngleChangerLanceur(AngleAdjusterMode.mMonter));
+		xboxPilot.back.whenPressed(new AngleChangerLanceur(AngleAdjusterMode.mDescendre));
 		
-		xboxPilot.x.toggleWhenPressed(new GrimpeurCommand());
 	}
 
 	public XboxControllerUD getXboxPilot() {

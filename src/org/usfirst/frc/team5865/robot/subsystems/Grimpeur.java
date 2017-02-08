@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Grimpeur extends Subsystem {
 
-	public static CANTalon grimpeurCANTalonDrive;
+	private CANTalon grimpeurCANTalonDrive;
 
 	public Grimpeur() {
 		grimpeurCANTalonDrive = new CANTalon(Const.GRIMPEUR_CAN_ID);
@@ -26,7 +26,7 @@ public class Grimpeur extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.    
 	public void monter() {
-		grimpeurCANTalonDrive.set(Const.GRIMPEUR_DEF_SPEED);	
+		grimpeurCANTalonDrive.set(Const.GRIMPEUR_DEF_SPEED);
 	}
 
 	public void arreter() {

@@ -26,7 +26,6 @@ public class Robot extends IterativeRobot {
 	public static Gobeur gobeur;
 	public static Lanceur lanceur;
 
-
 	Command autonomousCommand;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -36,6 +35,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
+		// Declare subsystem
 		drive = new Drive();
 		grimpeur = new Grimpeur();	
 		gobeur = new Gobeur();
