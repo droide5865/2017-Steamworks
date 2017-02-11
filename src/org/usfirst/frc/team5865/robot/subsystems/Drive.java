@@ -7,7 +7,6 @@ import org.usfirst.frc.team5865.robot.Utils;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,8 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drive extends Subsystem {
 	private final CANTalon driveSRX_RightMaster, driveSRX_RightSlave, driveSRX_LeftMaster, driveSRX_LeftSlave;
 	private final RobotDrive driveRobotDrive;
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
+	
+	private boolean m_RightSensorIsPresent, m_LeftSensorIsPresent;
 
 	public Drive() {
 		driveSRX_LeftMaster = new CANTalon(Const.DRIVE_LEFT_MASTER_CAN_ID);
@@ -34,12 +33,12 @@ public class Drive extends Subsystem {
 		driveSRX_RightSlave.enableBrakeMode(true);
 
 		// Get status at 100Hz
-		//driveSRX_LeftMaster.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 10);
-		//driveSRX_RightMaster.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 10);
+		driveSRX_LeftMaster.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 10);
+		driveSRX_RightMaster.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 10);
 
 		// Start in open loop
 		driveSRX_LeftMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		driveSRX_LeftMaster.setInverted(true);
+		driveSRX_LeftMaster.setInverted(false);
 		driveSRX_LeftMaster.set(0);
 		driveSRX_RightMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		driveSRX_LeftMaster.setInverted(true);
@@ -54,23 +53,23 @@ public class Drive extends Subsystem {
 		// Set drive class helper
 		driveRobotDrive = new RobotDrive(driveSRX_LeftMaster, driveSRX_RightMaster);		
 		driveRobotDrive.setSafetyEnabled(true);
-        	driveRobotDrive.setExpiration(0.1);
-        	driveRobotDrive.setSensitivity(0.5);
-        	driveRobotDrive.setMaxOutput(1.0);
+		driveRobotDrive.setExpiration(0.1);
+		driveRobotDrive.setSensitivity(0.5);
+		driveRobotDrive.setMaxOutput(1.0);
 		
 		// Set up the encoders
-		//driveSRX_LeftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		//if (driveSRX_LeftMaster.isSensorPresent(
-		//		CANTalon.FeedbackDevice.CtreMagEncoder_Relative) != CANTalon.FeedbackDeviceStatus.FeedbackStatusPresent) {
+		driveSRX_LeftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
+		m_LeftSensorIsPresent = driveSRX_LeftMaster.isSensorPresent(CANTalon.FeedbackDevice.CtreMagEncoder_Relative) != CANTalon.FeedbackDeviceStatus.FeedbackStatusPresent;
+		//if (mLeftSensorIsPresent) {
 		//	DriverStation.reportError("Could not detect left drive encoder!", false);
 		//}
 		//driveSRX_LeftMaster.reverseSensor(true);
 		//driveSRX_LeftMaster.reverseOutput(false);
 		//driveSRX_LeftSlave.reverseOutput(false);
-
-		//driveSRX_RightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		//if (driveSRX_RightMaster.isSensorPresent(
-		//		CANTalon.FeedbackDevice.CtreMagEncoder_Relative) != CANTalon.FeedbackDeviceStatus.FeedbackStatusPresent) {
+		
+		driveSRX_RightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
+		m_RightSensorIsPresent = driveSRX_RightMaster.isSensorPresent(CANTalon.FeedbackDevice.CtreMagEncoder_Relative) != CANTalon.FeedbackDeviceStatus.FeedbackStatusPresent;
+		//if (mRightSensorIsPresent) {
 		//	DriverStation.reportError("Could not detect right drive encoder!", false);
 		//}
 		//driveSRX_RightMaster.reverseSensor(false);
@@ -91,20 +90,22 @@ public class Drive extends Subsystem {
 	}
 
 	public void outputToSmartDashboard() {
-		//SmartDashboard.putNumber("left_distance", 	rotationsToInches(driveSRX_LeftMaster.getPosition()));
-		//SmartDashboard.putNumber("right_distance", 	rotationsToInches(driveSRX_RightMaster.getPosition()));
-		//SmartDashboard.putNumber("left_velocity", 	rpmToInchesPerSecond(driveSRX_LeftMaster.getSpeed()));
-		//SmartDashboard.putNumber("right_velocity", 	rpmToInchesPerSecond(driveSRX_RightMaster.getSpeed()));
-		//SmartDashboard.putNumber("left_error", 		driveSRX_LeftMaster.getClosedLoopError());
-		//SmartDashboard.putNumber("right_error", 	driveSRX_RightMaster.getClosedLoopError());
+		if (m_LeftSensorIsPresent & m_RightSensorIsPresent) {
+			SmartDashboard.putNumber("left_distance", 	rotationsToInches(driveSRX_LeftMaster.getPosition()));
+			SmartDashboard.putNumber("right_distance", 	rotationsToInches(driveSRX_RightMaster.getPosition()));
+			SmartDashboard.putNumber("left_velocity", 	rpmToInchesPerSecond(driveSRX_LeftMaster.getSpeed()));
+			SmartDashboard.putNumber("right_velocity", 	rpmToInchesPerSecond(driveSRX_RightMaster.getSpeed()));
+			SmartDashboard.putNumber("left_error", 		driveSRX_LeftMaster.getClosedLoopError());
+			SmartDashboard.putNumber("right_error", 	driveSRX_RightMaster.getClosedLoopError());			
+		}
 	}
 
 	public synchronized void resetEncoders() {
-		//driveSRX_LeftMaster.setPosition(0);
-		//driveSRX_RightMaster.setPosition(0);
+		driveSRX_LeftMaster.setPosition(0);
+		driveSRX_RightMaster.setPosition(0);
 
-		//driveSRX_LeftMaster.setEncPosition(0);
-		//driveSRX_RightMaster.setEncPosition(0);
+		driveSRX_LeftMaster.setEncPosition(0);
+		driveSRX_RightMaster.setEncPosition(0);
 	}
 
 	private static double rotationsToInches(double rotations) {

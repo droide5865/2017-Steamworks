@@ -34,9 +34,9 @@ public class Const {
 	public static final double GOBEUR_MAX_SPEED = 1;
 	
 	// lanceur
-	public static final double LANCEUR_DEF_SPEED = -1;
-	public static final double LANCEUR_INCREMENT_SPEED = -0.1;
-	public static final double LANCEUR_MAX_SPEED = -1;
+	public static final double LANCEUR_DEF_SPEED = 0.8;
+	public static final double LANCEUR_INCREMENT_SPEED = 0.1;
+	public static final double LANCEUR_MAX_SPEED = 1;
 	
 	public static final double LANCEUR_DEF_ANGLE = 0.5;
 	public static final double LANCEUR_MIN_ANGLE = 0.2;

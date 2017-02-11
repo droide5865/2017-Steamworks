@@ -22,6 +22,7 @@ public class Lanceur extends Subsystem {
 	public Lanceur() {
 		LanceurCANTalonDrive = new CANTalon(Const.LANCEUR_CAN_ID);
 		LanceurCANTalonDrive.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		LanceurCANTalonDrive.setInverted(true);
 		LanceurCANTalonDrive.set(0);
 		
 		AngleAdjuster = new Servo(0);
