@@ -31,7 +31,7 @@ public class Const {
 	public static final double GRIMPEUR_TIME_BEFORE_ACTIVATION = 30;
 	
 	// gobeur
-	public static final double GOBEUR_MAX_SPEED = 0.5;
+	public static final double GOBEUR_MAX_SPEED = 1;
 	
 	// lanceur
 	public static final double LANCEUR_DEF_SPEED = -1;
