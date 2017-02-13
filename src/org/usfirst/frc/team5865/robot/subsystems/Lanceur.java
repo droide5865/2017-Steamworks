@@ -25,7 +25,7 @@ public class Lanceur extends Subsystem {
 		LanceurCANTalonDrive.setInverted(true);
 		LanceurCANTalonDrive.set(0);
 		
-		AngleAdjuster = new Servo(0);
+		AngleAdjuster = new Servo(Const.LANCEUR_ANGLE_CHANGER_PWM);
 		AngleAdjuster.set(Const.LANCEUR_DEF_ANGLE);
 		
 		LiveWindow.addActuator("Lanceur", "CANTalonLanceur", LanceurCANTalonDrive);
