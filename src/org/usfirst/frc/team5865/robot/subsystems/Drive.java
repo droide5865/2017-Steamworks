@@ -41,7 +41,7 @@ public class Drive extends Subsystem {
 		driveSRX_LeftMaster.setInverted(false);
 		driveSRX_LeftMaster.set(0);
 		driveSRX_RightMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		driveSRX_RightMaster.setInverted(false);
+		driveSRX_LeftMaster.setInverted(true);
 		driveSRX_RightMaster.set(0);
 
 		// Set slaves

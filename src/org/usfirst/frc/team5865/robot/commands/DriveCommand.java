@@ -37,7 +37,7 @@ public class DriveCommand extends Command {
 			double Yspeed = piloteXbox.rt.getX() - piloteXbox.lt.getX();
 			double Xspeed = piloteXbox.leftStick.getX();
 
-			Robot.drive.drive(Yspeed, -Xspeed);
+			Robot.drive.drive(Yspeed, Xspeed);
 			break;
 		case mResetEncoders:
 			Robot.drive.resetEncoders();
