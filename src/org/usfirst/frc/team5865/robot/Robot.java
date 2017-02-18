@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team5865.robot.commands.AutoCommand;
+import org.usfirst.frc.team5865.robot.subsystems.BallFeeder;
 import org.usfirst.frc.team5865.robot.subsystems.Drive;
 import org.usfirst.frc.team5865.robot.subsystems.Gobeur;
 import org.usfirst.frc.team5865.robot.subsystems.Grimpeur;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static Grimpeur grimpeur;
 	public static Gobeur gobeur;
 	public static Lanceur lanceur;
+	public static BallFeeder feeder;
 
 	Command autonomousCommand;
 	//SendableChooser<Command> chooser = new SendableChooser<>();
@@ -41,6 +43,7 @@ public class Robot extends IterativeRobot {
 		grimpeur = new Grimpeur();	
 		gobeur = new Gobeur();
 		lanceur = new Lanceur();
+		feeder = new BallFeeder();		
 
 		// OI must be constructed after subsystems. If the OI creates Commands
 		//(which it very likely will), subsystems are not guaranteed to be
