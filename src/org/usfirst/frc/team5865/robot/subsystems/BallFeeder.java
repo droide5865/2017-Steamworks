@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BallFeeder extends Subsystem {
 
-	private enum ServoPosition { mLeft, mRight, mZero }
+	private enum ServoPosition { mDeployed, mRetracted, mZero }
 	ServoPosition m_ServoPos;
 	
 	private Servo SmartServo;
@@ -24,12 +24,11 @@ public class BallFeeder extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new RunFeederCommand(FeederCmdMode.mReset));
 	}
 
 	public void toggleFeeder() {
 		// Switch position
-		m_ServoPos = (m_ServoPos == ServoPosition.mLeft) ? ServoPosition.mRight : ServoPosition.mLeft;
+		m_ServoPos = (m_ServoPos == ServoPosition.mDeployed) ? ServoPosition.mRetracted : ServoPosition.mDeployed;
 		
 		// Set servo to new position
 		setServoToPosition(m_ServoPos);
@@ -47,12 +46,12 @@ public class BallFeeder extends Subsystem {
 	
 	private double computeAngle(ServoPosition pos) {
 		switch (pos) {
-		case mLeft:
-			return Const.FEEDER_START_POSITION - Const.FEEDER_SIDE_ANGLE_SPAN;
-		case mRight:
-			return Const.FEEDER_START_POSITION + Const.FEEDER_SIDE_ANGLE_SPAN;
+		case mDeployed:
+			return Const.FEEDER_DEPLOYED_POSITION;
+		case mRetracted:
+			return Const.FEEDER_RETRACTED_POSITION;
 		case mZero:
-			return Const.FEEDER_START_POSITION;
+			return Const.FEEDER_RETRACTED_POSITION;
 		default:
 			break;
 		}

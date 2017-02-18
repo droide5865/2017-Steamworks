@@ -46,14 +46,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
+
 		// Declare subsystem
 		drive = new Drive();
-		grimpeur = new Grimpeur();	
+		grimpeur = new Grimpeur();
 		gobeur = new Gobeur();
 		lanceur = new Lanceur();
-		feeder = new BallFeeder();		
-		
+		feeder = new BallFeeder();
 
 		// OI must be constructed after subsystems. If the OI creates Commands
 		//(which it very likely will), subsystems are not guaranteed to be
@@ -63,17 +62,12 @@ public class Robot extends IterativeRobot {
 
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutoCommand();
-		
-		
-		
-		
-            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-            camera.setResolution(640, 480);
-            
-            UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-            camera2.setResolution(640, 480);
-            
-            
+
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setResolution(640, 480);
+
+		UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+		camera2.setResolution(640, 480);
 	}
 
 	/**

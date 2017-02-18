@@ -3,6 +3,7 @@ package org.usfirst.frc.team5865.robot.subsystems;
 import org.usfirst.frc.team5865.robot.Const;
 import org.usfirst.frc.team5865.robot.Utils;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,33 +15,36 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Lanceur extends Subsystem {
 
 	private CANTalon LanceurCANTalonDrive;
-	private Servo AngleAdjuster;
-		
+
 	private double mSpeed;
-	private double mAngle;
 
 	public Lanceur() {
 		LanceurCANTalonDrive = new CANTalon(Const.LANCEUR_CAN_ID);
-		LanceurCANTalonDrive.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		LanceurCANTalonDrive.setInverted(true);
+		LanceurCANTalonDrive.changeControlMode(CANTalon.TalonControlMode.Speed);
+		LanceurCANTalonDrive.configPeakOutputVoltage(+0.0f, -12.0f);
 		LanceurCANTalonDrive.set(0);
-		
-		AngleAdjuster = new Servo(Const.LANCEUR_ANGLE_CHANGER_PWM);
-		AngleAdjuster.set(Const.LANCEUR_DEF_ANGLE);
-		
+
+		LanceurCANTalonDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		LanceurCANTalonDrive.configEncoderCodesPerRev(20);
+		LanceurCANTalonDrive.reverseSensor(false);
+		LanceurCANTalonDrive.reverseOutput(true);
+
+		LanceurCANTalonDrive.setProfile(0);
+		LanceurCANTalonDrive.setF(Const.SHOOTER_F_GAIN);
+		LanceurCANTalonDrive.setP(Const.SHOOTER_P_GAIN);
+		LanceurCANTalonDrive.setI(Const.SHOOTER_I_GAIN); 
+		LanceurCANTalonDrive.setD(Const.SHOOTER_D_GAIN);
+
 		LiveWindow.addActuator("Lanceur", "CANTalonLanceur", LanceurCANTalonDrive);
-		
+
 		mSpeed = Const.LANCEUR_DEF_SPEED;
-		mAngle = Const.LANCEUR_DEF_ANGLE;
 	}
 
 	public void initDefaultCommand() {
 	}
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.    
 	public void lancer() {
-		LanceurCANTalonDrive.set(Utils.Limit(mSpeed));	
+		LanceurCANTalonDrive.set(mSpeed / 4);	
 	}
 
 	public void arreter() {
@@ -51,20 +55,10 @@ public class Lanceur extends Subsystem {
 		mSpeed = Utils.Limit(mSpeed + Const.LANCEUR_INCREMENT_SPEED, 0, Const.LANCEUR_MAX_SPEED);
 		return mSpeed;
 	}
-	
+
 	public double speedDown() {
 		mSpeed = Utils.Limit(mSpeed - Const.LANCEUR_INCREMENT_SPEED, 0, Const.LANCEUR_MAX_SPEED);
 		return mSpeed;
-	}
-	
-	public void angleUp() {
-		mAngle = Utils.Limit(mAngle + Const.LANCEUR_INCREMENT_ANGLE, Const.LANCEUR_MIN_ANGLE, Const.LANCEUR_MAX_ANGLE);
-		AngleAdjuster.set(mAngle);
-	}
-	
-	public void angleDown() {
-		mAngle = Utils.Limit(mAngle - Const.LANCEUR_INCREMENT_ANGLE, Const.LANCEUR_MIN_ANGLE, Const.LANCEUR_MAX_ANGLE);
-		AngleAdjuster.set(mAngle);
 	}
 }
 

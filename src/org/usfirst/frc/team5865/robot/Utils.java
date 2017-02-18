@@ -17,4 +17,8 @@ public class Utils {
 
 		return num;
 	}
+	
+	public double calcArcCercle(double angle, double radius) {
+		return (radius * angle * Math.PI) / 180;
+	}
 }

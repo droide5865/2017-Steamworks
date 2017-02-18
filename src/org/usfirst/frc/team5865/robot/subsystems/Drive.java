@@ -7,6 +7,7 @@ import org.usfirst.frc.team5865.robot.Utils;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -51,7 +52,7 @@ public class Drive extends Subsystem {
 		driveSRX_RightSlave.set(Const.DRIVE_RIGHT_MASTER_CAN_ID);
 		
 		// Set drive class helper
-		driveRobotDrive = new RobotDrive(driveSRX_LeftMaster, driveSRX_RightMaster);		
+		driveRobotDrive = new RobotDrive(driveSRX_LeftMaster, driveSRX_RightMaster);
 		driveRobotDrive.setSafetyEnabled(true);
 		driveRobotDrive.setExpiration(0.1);
 		driveRobotDrive.setSensitivity(0.5);
@@ -60,21 +61,34 @@ public class Drive extends Subsystem {
 		// Set up the encoders
 		driveSRX_LeftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		m_LeftSensorIsPresent = driveSRX_LeftMaster.isSensorPresent(CANTalon.FeedbackDevice.CtreMagEncoder_Relative) != CANTalon.FeedbackDeviceStatus.FeedbackStatusPresent;
-		//if (mLeftSensorIsPresent) {
-		//	DriverStation.reportError("Could not detect left drive encoder!", false);
-		//}
-		//driveSRX_LeftMaster.reverseSensor(true);
-		//driveSRX_LeftMaster.reverseOutput(false);
-		//driveSRX_LeftSlave.reverseOutput(false);
+		if (m_LeftSensorIsPresent) {
+			DriverStation.reportError("Could not detect left drive encoder!", false);
+		}
+		driveSRX_LeftMaster.reverseSensor(false);
+		driveSRX_LeftMaster.reverseOutput(false);
+		driveSRX_LeftSlave.reverseOutput(false);
 		
 		driveSRX_RightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		m_RightSensorIsPresent = driveSRX_RightMaster.isSensorPresent(CANTalon.FeedbackDevice.CtreMagEncoder_Relative) != CANTalon.FeedbackDeviceStatus.FeedbackStatusPresent;
-		//if (mRightSensorIsPresent) {
-		//	DriverStation.reportError("Could not detect right drive encoder!", false);
-		//}
-		//driveSRX_RightMaster.reverseSensor(false);
-		//driveSRX_RightMaster.reverseOutput(true);
-		//driveSRX_RightSlave.reverseOutput(false);
+		if (m_RightSensorIsPresent) {
+			DriverStation.reportError("Could not detect right drive encoder!", false);
+		}
+		driveSRX_RightMaster.reverseSensor(true);
+		driveSRX_RightMaster.reverseOutput(false);
+		driveSRX_RightSlave.reverseOutput(false);
+		
+		// Set PIDs
+		driveSRX_LeftMaster.setProfile(0);
+		driveSRX_LeftMaster.setF(Const.DRIVE_F_GAIN);
+		driveSRX_LeftMaster.setP(Const.DRIVE_P_GAIN);
+		driveSRX_LeftMaster.setI(Const.DRIVE_I_GAIN); 
+		driveSRX_LeftMaster.setD(Const.DRIVE_D_GAIN);
+		
+		driveSRX_RightMaster.setProfile(0);
+		driveSRX_RightMaster.setF(Const.DRIVE_F_GAIN);
+		driveSRX_RightMaster.setP(Const.DRIVE_P_GAIN);
+		driveSRX_RightMaster.setI(Const.DRIVE_I_GAIN); 
+		driveSRX_RightMaster.setD(Const.DRIVE_D_GAIN);
 	}
 
 	public void initDefaultCommand() {
@@ -96,7 +110,7 @@ public class Drive extends Subsystem {
 			SmartDashboard.putNumber("left_velocity", 	rpmToInchesPerSecond(driveSRX_LeftMaster.getSpeed()));
 			SmartDashboard.putNumber("right_velocity", 	rpmToInchesPerSecond(driveSRX_RightMaster.getSpeed()));
 			SmartDashboard.putNumber("left_error", 		driveSRX_LeftMaster.getClosedLoopError());
-			SmartDashboard.putNumber("right_error", 	driveSRX_RightMaster.getClosedLoopError());			
+			SmartDashboard.putNumber("right_error", 	driveSRX_RightMaster.getClosedLoopError());
 		}
 	}
 
