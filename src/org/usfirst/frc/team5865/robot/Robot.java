@@ -5,12 +5,21 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team5865.robot.commands.AutoCommand;
 import org.usfirst.frc.team5865.robot.subsystems.BallFeeder;
 import org.usfirst.frc.team5865.robot.subsystems.Drive;
 import org.usfirst.frc.team5865.robot.subsystems.Gobeur;
 import org.usfirst.frc.team5865.robot.subsystems.Grimpeur;
 import org.usfirst.frc.team5865.robot.subsystems.Lanceur;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,6 +53,7 @@ public class Robot extends IterativeRobot {
 		gobeur = new Gobeur();
 		lanceur = new Lanceur();
 		feeder = new BallFeeder();		
+		
 
 		// OI must be constructed after subsystems. If the OI creates Commands
 		//(which it very likely will), subsystems are not guaranteed to be
@@ -53,6 +63,17 @@ public class Robot extends IterativeRobot {
 
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutoCommand();
+		
+		
+		
+		
+            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+            camera.setResolution(640, 480);
+            
+            UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+            camera2.setResolution(640, 480);
+            
+            
 	}
 
 	/**
