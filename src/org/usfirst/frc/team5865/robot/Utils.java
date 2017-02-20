@@ -18,7 +18,11 @@ public class Utils {
 		return num;
 	}
 	
-	public double calcArcCercle(double angle, double radius) {
+	public static double distAngle(double angle, double radius) {
 		return (radius * angle * Math.PI) / 180;
+	}
+	
+	public static double distanceToRotation(double distance, double wheelsDiameter) {
+		return distance / (wheelsDiameter * Math.PI);
 	}
 }

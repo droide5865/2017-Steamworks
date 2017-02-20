@@ -1,9 +1,6 @@
 package org.usfirst.frc.team5865.robot.subsystems;
 
 import org.usfirst.frc.team5865.robot.Const;
-import org.usfirst.frc.team5865.robot.commands.RunFeederCommand;
-import org.usfirst.frc.team5865.robot.commands.RunFeederCommand.FeederCmdMode;
-
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

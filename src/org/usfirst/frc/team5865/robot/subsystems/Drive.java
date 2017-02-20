@@ -3,7 +3,6 @@ package org.usfirst.frc.team5865.robot.subsystems;
 import org.usfirst.frc.team5865.robot.Const;
 import org.usfirst.frc.team5865.robot.commands.DriveCommand;
 import org.usfirst.frc.team5865.robot.Utils;
-
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
@@ -19,6 +18,9 @@ public class Drive extends Subsystem {
 	private final CANTalon driveSRX_RightMaster, driveSRX_RightSlave, driveSRX_LeftMaster, driveSRX_LeftSlave;
 	private final RobotDrive driveRobotDrive;
 	
+	public enum DriveMode { kOpenLoop, kClosedLoop, kMotionMagic };
+	private DriveMode mMode;
+	
 	private boolean m_RightSensorIsPresent, m_LeftSensorIsPresent;
 
 	public Drive() {
@@ -33,17 +35,18 @@ public class Drive extends Subsystem {
 		driveSRX_RightMaster.enableBrakeMode(true);
 		driveSRX_RightSlave.enableBrakeMode(true);
 
-		// Get status at 100Hz
+		// Set status at 100Hz
 		driveSRX_LeftMaster.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 10);
 		driveSRX_RightMaster.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 10);
 
+		driveSRX_LeftMaster.configNominalOutputVoltage(0f, 0f);
+		driveSRX_RightMaster.configNominalOutputVoltage(0f, 0f);
+		
+		driveSRX_LeftMaster.configPeakOutputVoltage(+12f, -12f);
+		driveSRX_RightMaster.configPeakOutputVoltage(+12f, -12f);
+
 		// Start in open loop
-		driveSRX_LeftMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		driveSRX_LeftMaster.setInverted(false);
-		driveSRX_LeftMaster.set(0);
-		driveSRX_RightMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		driveSRX_RightMaster.setInverted(false);
-		driveSRX_RightMaster.set(0);
+		setDriveMode(DriveMode.kOpenLoop);
 
 		// Set slaves
 		driveSRX_LeftSlave.changeControlMode(TalonControlMode.Follower);
@@ -89,6 +92,20 @@ public class Drive extends Subsystem {
 		driveSRX_RightMaster.setP(Const.DRIVE_P_GAIN);
 		driveSRX_RightMaster.setI(Const.DRIVE_I_GAIN); 
 		driveSRX_RightMaster.setD(Const.DRIVE_D_GAIN);
+		
+		// Set magic motion profile
+		driveSRX_LeftMaster.setMotionMagicCruiseVelocity(Const.AUTO_CRUISING_RPM);
+		driveSRX_LeftMaster.setMotionMagicAcceleration(Const.AUTO_ACCELERATION_RPM_PER_SEC);
+		
+		driveSRX_RightMaster.setMotionMagicCruiseVelocity(Const.AUTO_CRUISING_RPM);
+		driveSRX_RightMaster.setMotionMagicAcceleration(Const.AUTO_ACCELERATION_RPM_PER_SEC);
+	}
+
+	public void setDriveMode(DriveMode mode) {
+		if (mMode == mode)
+			return;
+		
+		resetEncoders();
 	}
 
 	public void initDefaultCommand() {
@@ -101,6 +118,17 @@ public class Drive extends Subsystem {
 			curve = 0 - xspeed;
 
 		driveRobotDrive.drive(yspeed, Utils.Limit(curve));
+	}
+	
+	public void driveAuto(double leftMotor, double rightMotor) {
+		driveSRX_LeftMaster.set(leftMotor);
+		driveSRX_RightMaster.set(rightMotor);
+	}
+
+	public double getDistance() {
+		// Return max of left/right drive
+		return Math.max(Math.abs(rotationsToMeters(driveSRX_LeftMaster.getPosition())), 
+						Math.abs(rotationsToMeters(driveSRX_RightMaster.getPosition())));
 	}
 
 	public void outputToSmartDashboard() {
@@ -115,19 +143,19 @@ public class Drive extends Subsystem {
 	}
 
 	public synchronized void resetEncoders() {
-		driveSRX_LeftMaster.setPosition(0);
-		driveSRX_RightMaster.setPosition(0);
-
 		driveSRX_LeftMaster.setEncPosition(0);
 		driveSRX_RightMaster.setEncPosition(0);
+
+		driveSRX_LeftMaster.setPosition(0);
+		driveSRX_RightMaster.setPosition(0);
 	}
 
 	private static double rotationsToInches(double rotations) {
-		return rotations * (Const.WHEELS_DIAMETER_IN * Math.PI);
+		return rotations * (Const.ROBOT_WHEELS_DIAMETER_IN * Math.PI);
 	}
 
 	private static double rotationsToMeters(double rotations) {
-		return rotations * (Const.WHEELS_DIAMETER_M * Math.PI);
+		return rotations * (Const.ROBOT_WHEELS_DIAMETER_M * Math.PI);
 	}
 
 	private static double rpmToInchesPerSecond(double rpm) {
@@ -143,11 +171,12 @@ public class Drive extends Subsystem {
 	}
 
 	private static double inchesToRotations(double inches) {
-		return inches / (Const.WHEELS_DIAMETER_IN * Math.PI);
+		return inches / (Const.ROBOT_WHEELS_DIAMETER_IN * Math.PI);
 	}
 
 	public void stop() {
 		driveRobotDrive.stopMotor();
 	}
+
 }
 
