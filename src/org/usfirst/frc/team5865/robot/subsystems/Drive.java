@@ -105,6 +105,27 @@ public class Drive extends Subsystem {
 		if (mMode == mode)
 			return;
 		
+		mMode = mode;
+		switch (mMode) {
+		case kOpenLoop:
+			driveSRX_LeftMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			driveSRX_LeftMaster.setInverted(false);
+			driveSRX_LeftMaster.set(0);
+			driveSRX_RightMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			driveSRX_RightMaster.setInverted(false);
+			driveSRX_RightMaster.set(0);
+			break;
+		case kClosedLoop:
+			driveSRX_LeftMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
+			driveSRX_RightMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
+			break;
+		case kMotionMagic:
+			driveSRX_LeftMaster.changeControlMode(CANTalon.TalonControlMode.MotionMagic);
+			driveSRX_RightMaster.changeControlMode(CANTalon.TalonControlMode.MotionMagic);
+			break;
+		default:
+			break;
+		}
 		resetEncoders();
 	}
 
