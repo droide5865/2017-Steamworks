@@ -19,12 +19,12 @@ public class OI {
 		xboxPilot = new XboxControllerUD(0);
 
 		xboxPilot.y.toggleWhenPressed(new GrimpeurCommand());
-		xboxPilot.b.toggleWhenPressed(new LanceurFeederCommandGroup());
+//		xboxPilot.b.toggleWhenPressed(new LanceurFeederCommandGroup());
 		xboxPilot.a.toggleWhenPressed(new GobeurCommand());
 //		xboxPilot.x.toggleWhenPressed(new RunFeederCommand());
 		
-		xboxPilot.rb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mMonter));
-		xboxPilot.lb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mDescendre));
+//		xboxPilot.rb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mMonter));
+//		xboxPilot.lb.whenPressed(new SpeedChangerLanceur(SpeedChangerMode.mDescendre));
 //		xboxPilot.start.whenPressed(new AngleChangerLanceur(AngleAdjusterMode.mMonter));
 //		xboxPilot.back.whenPressed(new AngleChangerLanceur(AngleAdjusterMode.mDescendre));
 		

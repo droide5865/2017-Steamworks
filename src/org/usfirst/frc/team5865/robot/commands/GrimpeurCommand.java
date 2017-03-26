@@ -32,9 +32,9 @@ public class GrimpeurCommand extends Command {
 	protected void execute() {
 		switch (mMode) {
 		case mGrimper:
-			if (DriverStation.getInstance().getMatchTime() < Const.GRIMPEUR_TIME_BEFORE_ACTIVATION /*seconds*/) {
+			//if (DriverStation.getInstance().getMatchTime() < Const.GRIMPEUR_TIME_BEFORE_ACTIVATION /*seconds*/) {
 				Robot.grimpeur.monter();
-			}
+			//}
 			break;
 		case mArreter:
 			Robot.grimpeur.arreter();

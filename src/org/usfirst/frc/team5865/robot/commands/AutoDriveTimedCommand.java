@@ -34,7 +34,7 @@ public class AutoDriveTimedCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.drive.setDriveMode(DriveMode.kOpenLoop);
+		Robot.drive.setDriveMode(m_mode == AutoDriveTimedCmdMode.kArret ? DriveMode.kNone : DriveMode.kOpenLoop, true /*force reset*/);
 		m_startTime = Timer.getFPGATimestamp();
 	}
 

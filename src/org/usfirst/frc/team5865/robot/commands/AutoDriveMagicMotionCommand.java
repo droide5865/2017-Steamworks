@@ -39,7 +39,7 @@ public class AutoDriveMagicMotionCommand extends Command {
 			// Convert in distance then in number of rotation
 			mPosition = Utils.distanceToRotation(croppedValue, Const.ROBOT_WHEELS_DIAMETER_M);
 		}
-		
+		mPosition = 2;
 		mMode = mode;
 	}
 
@@ -68,9 +68,15 @@ public class AutoDriveMagicMotionCommand extends Command {
 		}
 	}
 
+//	// Make this return true when this Command no longer needs to run execute()
+//	protected boolean isFinished() {
+//		return Robot.drive.getDistance() >= mPosition - (mPosition * Const.AUTO_PERMITTED_DIST_ERROR);
+//	}
+	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.drive.getDistance() >= mPosition - (mPosition * Const.AUTO_PERMITTED_DIST_ERROR);
+		return Robot.drive.getEncPosition() >= mPosition;
+//		return Math.abs(Utils.rotationsToMeters(Robot.drive.getDistance(), Const.ROBOT_WHEEL2WHEEL_WIDTH_M)) >= mPosition - (mPosition * Const.AUTO_PERMITTED_DIST_ERROR);
 	}
 
 	// Called once after isFinished returns true

@@ -5,7 +5,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team5865.robot.commands.AutonomousStraight;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team5865.robot.commands.auto.AutoCenterSlot;
+import org.usfirst.frc.team5865.robot.commands.auto.AutoSideSlot;
+import org.usfirst.frc.team5865.robot.commands.auto.AutoStraightLine;
 import org.usfirst.frc.team5865.robot.subsystems.BallFeeder;
 import org.usfirst.frc.team5865.robot.subsystems.Drive;
 import org.usfirst.frc.team5865.robot.subsystems.Gobeur;
@@ -33,7 +37,7 @@ public class Robot extends IterativeRobot {
 	public static BallFeeder feeder;
 
 	Command autonomousCommand;
-	//SendableChooser<Command> chooser = new SendableChooser<>();
+//	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,8 +50,8 @@ public class Robot extends IterativeRobot {
 		drive = new Drive();
 		grimpeur = new Grimpeur();
 		gobeur = new Gobeur();
-		lanceur = new Lanceur();
-		feeder = new BallFeeder();
+//		lanceur = new Lanceur();
+//		feeder = new BallFeeder();
 
 		// OI must be constructed after subsystems. If the OI creates Commands
 		//(which it very likely will), subsystems are not guaranteed to be
@@ -56,13 +60,23 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		// instantiate the command used for the autonomous period
-		autonomousCommand = new AutonomousStraight();
+		autonomousCommand = new AutoCenterSlot(true /*turnLeft*/);
+//		autonomousCommand = new AutoSideSlot(true /*isLeftSlot*/);
+		//		autonomousCommand = new AutoStraightLine();
+		
+//		chooser.addDefault(Const.AUTO_MODE_STRAIGHT, new AutoStraightLine());
+//		chooser.addObject("My Auto", new MyAutoCommand());
+//		SmartDashboard.putData("Auto mode", chooser);
 
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(640, 480);
+		// Back camera (basse resolution pour respecter le bandwidth usb)
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+		camera.setResolution(160, 120); //320x240
+		camera.setFPS(5);
 
+		// 
 		UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-		camera2.setResolution(640, 480);
+		camera2.setResolution(320, 240); // 640x480
+		camera2.setFPS(15);
 	}
 
 	/**
@@ -96,6 +110,24 @@ public class Robot extends IterativeRobot {
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) autonomousCommand.start();
+		//		autonomousCommand = chooser.getSelected();
+
+//		String autoSelected = SmartDashboard.getString("Auto Selector", "Default"); 
+//		switch(autoSelected) { 
+//		case "Left Slot (gear)": 
+//			autonomousCommand = new AutoSideSlot(true /*isLeftSlot*/); 
+//			break;
+//		case "Right Slot (gear)": 
+//			autonomousCommand = new AutoSideSlot(false /*isLeftSlot*/); 
+//			break; 
+//		case "Center Slot":
+//			autonomousCommand = new AutoCenterSlot(true /*turnLeft*/); 
+//			break;
+//		case "Straight (no gear)": 
+//		default:
+//			autonomousCommand = new AutoStraightLine(); 
+//			break; 
+//		}
 	}
 
 	/**
@@ -113,8 +145,9 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null) autonomousCommand.cancel();
-		
+
 		// Set drive in open loop
+		drive.setDriveMode(DriveMode.kNone);
 		drive.setDriveMode(DriveMode.kOpenLoop);
 	}
 

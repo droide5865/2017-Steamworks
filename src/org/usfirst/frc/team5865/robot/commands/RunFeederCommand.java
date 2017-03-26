@@ -33,6 +33,7 @@ public class RunFeederCommand extends Command {
 	protected void execute() {
 		switch (mMode) {
 		case mRun:
+			Robot.feeder.run();
 			if (Timer.getFPGATimestamp() - m_LastTimeToggled >= Const.FEEDER_PERIOD) {
 				Robot.feeder.toggleFeeder();
 

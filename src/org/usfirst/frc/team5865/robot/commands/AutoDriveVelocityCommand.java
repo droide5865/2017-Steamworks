@@ -45,7 +45,7 @@ public class AutoDriveVelocityCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.drive.setDriveMode(DriveMode.kClosedLoop);
+		Robot.drive.setDriveMode(DriveMode.kClosedLoop, true /*force reset*/);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -68,10 +68,14 @@ public class AutoDriveVelocityCommand extends Command {
 			break;
 		}
 	}
+	
+	public boolean distanceReached() {
+		return Math.abs(Utils.rotationsToMeters(Robot.drive.getEncPosition(), Const.ROBOT_WHEEL2WHEEL_WIDTH_M)) >= mPosition - (mPosition * Const.AUTO_PERMITTED_DIST_ERROR);
+	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.drive.getDistance() >= mPosition - (mPosition * Const.AUTO_PERMITTED_DIST_ERROR);
+		return distanceReached();
 	}
 
 	// Called once after isFinished returns true

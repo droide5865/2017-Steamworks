@@ -12,11 +12,11 @@ public class BallFeeder extends Subsystem {
 	private enum ServoPosition { mDeployed, mRetracted, mZero }
 	ServoPosition m_ServoPos;
 	
-	private Servo SmartServo;
+	private Servo smartServo;
 	private double m_ServoAngle;
 
 	public BallFeeder() {
-		SmartServo = new Servo(Const.FEEDER_SERVO_PWM_CHANNEL);
+		smartServo = new Servo(Const.FEEDER_SERVO_LEFT_PWM_CHANNEL);
 		resetAngle();
 	}
 
@@ -38,7 +38,7 @@ public class BallFeeder extends Subsystem {
 	
 	private void setServoToPosition(ServoPosition pos) {
 		m_ServoAngle = computeAngle(pos);
-		SmartServo.set(m_ServoAngle);
+		smartServo.set(m_ServoAngle);
 	}
 	
 	private double computeAngle(ServoPosition pos) {
@@ -54,5 +54,10 @@ public class BallFeeder extends Subsystem {
 		}
 		
 		return 0;
+	}
+
+	public void run() {
+		// TODO Auto-generated method stub
+		smartServo.set(1);
 	}
 }

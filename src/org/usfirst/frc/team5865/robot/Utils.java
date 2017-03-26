@@ -25,4 +25,12 @@ public class Utils {
 	public static double distanceToRotation(double distance, double wheelsDiameter) {
 		return distance / (wheelsDiameter * Math.PI);
 	}
+	
+	public static double rotationsToMeters(double rotations, double wheelsDiameter) {
+		return rotations * (wheelsDiameter * Math.PI);
+	}
+	
+	public static double inchesToMeters(double inches) {
+		return inches * 0.0254;
+	}
 }

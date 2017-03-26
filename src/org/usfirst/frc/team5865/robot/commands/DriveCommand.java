@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5865.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5865.joystick.XboxControllerUD;
 import org.usfirst.frc.team5865.robot.Robot;
@@ -30,6 +31,9 @@ public class DriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		if (DriverStation.getInstance().isAutonomous())
+			return;
+		
 		// Calls the takeJoystickInput() function from the
 		// driveTrain class. Takes input until the command ends.
 		switch (mMode) {

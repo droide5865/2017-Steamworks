@@ -9,7 +9,7 @@ public class LanceurFeederCommandGroup extends CommandGroup {
 
 	public LanceurFeederCommandGroup() {
 		addParallel(new LanceurCommand());
-		addParallel(new RunFeederCommand());
+		//addParallel(new RunFeederCommand());
 
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
